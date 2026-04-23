@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bassano da Scoprire 🏔️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f9f6f1;--surface:#fff;--surface2:#f2ece3;--border:rgba(0,0,0,0.09);
+  --text:#1e1a14;--muted:#6e6660;--faint:#b5b0aa;
+  /* Palette Bassano: terracotta, verde Brenta, oro */
+  --primary:#9b3a1a;--primary-light:#fdf0ec;--primary-hover:#7a2d13;
+  --green:#3a6b3a;--green-light:#eaf3ea;--green-hover:#2d5430;
+  --blue:#2a5c8a;--blue-light:#e8f1f8;
+  --orange:#c47a1a;--orange-light:#fdf4e3;
+  --violet:#6b3fa0;--violet-light:#f3edfb;
+  --coral:#b84040;--coral-light:#fdeaea;
+  --gold:#a07820;--gold-light:#faf3e0;
+  --radius:1rem;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg:0 8px 32px rgba(0,0,0,0.13);
+}
+[data-theme=dark]{
+  --bg:#130f0b;--surface:#1c1814;--surface2:#231e18;--border:rgba(255,255,255,0.09);
+  --text:#e8e2da;--muted:#918c84;--faint:#57524c;
+  --primary:#d4714a;--primary-light:#2a1510;--primary-hover:#b85c38;
+  --green:#5aaa5a;--green-light:#182818;--green-hover:#489048;
+  --blue:#5b90c7;--blue-light:#141f2e;
+  --orange:#d4942a;--orange-light:#251a08;
+  --violet:#a87ed4;--violet-light:#1e1228;
+  --coral:#e06060;--coral-light:#2a1010;
+  --gold:#c8a040;--gold-light:#201a08;
+  --shadow:0 2px 12px rgba(0,0,0,0.35);--shadow-lg:0 8px 32px rgba(0,0,0,0.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+img{display:block;max-width:100%}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+.logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;display:flex;align-items:center;gap:.5rem;color:var(--primary)}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.btn-add{background:var(--primary);color:#fff;padding:.45rem 1.1rem;border-radius:2rem;font-size:.85rem;font-weight:600;transition:background .18s}
+.btn-add:hover{background:var(--primary-hover)}
+.btn-theme{padding:.4rem;border-radius:2rem;border:1.5px solid var(--border);display:flex;align-items:center;transition:background .18s}
+.btn-theme:hover{background:var(--surface2)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#9b3a1a 0%,#c47a1a 50%,#3a6b3a 100%);color:#fff;padding:2.5rem 1.5rem 3rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:.5rem;position:relative}
+.hero p{opacity:.9;font-size:1rem;max-width:48ch;margin:0 auto;position:relative}
+.hero-sub{display:flex;justify-content:center;gap:1.5rem;margin-top:1.25rem;position:relative;flex-wrap:wrap}
+.hero-pill{background:rgba(255,255,255,.15);backdrop-filter:blur(4px);padding:.35rem .9rem;border-radius:2rem;font-size:.8rem;font-weight:600}
+
+/* FILTERS */
+.filters{max-width:1150px;margin:0 auto;padding:1.75rem 1.5rem .5rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.filter-btn{padding:.5rem 1.1rem;border-radius:2rem;border:1.5px solid var(--border);font-size:.85rem;font-weight:500;background:var(--surface);transition:all .18s;white-space:nowrap}
+.filter-btn.active[data-filter="all"],.filter-btn[data-filter="all"]:hover{border-color:var(--primary);background:var(--primary-light);color:var(--primary)}
+.filter-btn.active[data-filter="visitare"],.filter-btn[data-filter="visitare"]:hover{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.filter-btn.active[data-filter="mangiare"],.filter-btn[data-filter="mangiare"]:hover{border-color:var(--primary);background:var(--primary-light);color:var(--primary)}
+.filter-btn.active[data-filter="trekking"],.filter-btn[data-filter="trekking"]:hover{border-color:var(--green);background:var(--green-light);color:var(--green)}
+.filter-btn.active[data-filter="trekking-medio"],.filter-btn[data-filter="trekking-medio"]:hover{border-color:var(--orange);background:var(--orange-light);color:var(--orange)}
+.filter-btn.active[data-filter="bici"],.filter-btn[data-filter="bici"]:hover{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.filter-btn.active[data-filter="picnic"],.filter-btn[data-filter="picnic"]:hover{border-color:var(--violet);background:var(--violet-light);color:var(--violet)}
+.filter-btn.active[data-filter="adventure"],.filter-btn[data-filter="adventure"]:hover{border-color:var(--coral);background:var(--coral-light);color:var(--coral)}
+.filter-btn.active[data-filter="prodotti"],.filter-btn[data-filter="prodotti"]:hover{border-color:var(--gold);background:var(--gold-light);color:var(--gold)}
+
+/* GRID */
+.grid{max-width:1150px;margin:0 auto;padding:1rem 1.5rem 3rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.25rem}
+
+/* CARD */
+.card{background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.card-img{aspect-ratio:16/9;overflow:hidden;position:relative}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .card-img img{transform:scale(1.04)}
+.cat-badge{position:absolute;top:.7rem;left:.7rem;padding:.25rem .65rem;border-radius:2rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;backdrop-filter:blur(8px)}
+.badge-visitare{background:rgba(42,92,138,.85);color:#fff}
+.badge-mangiare{background:rgba(155,58,26,.85);color:#fff}
+.badge-trekking{background:rgba(58,107,58,.85);color:#fff}
+.badge-trekking-medio{background:rgba(196,122,26,.85);color:#fff}
+.badge-bici{background:rgba(42,92,138,.85);color:#fff}
+.badge-picnic{background:rgba(107,63,160,.85);color:#fff}
+.badge-adventure{background:rgba(184,64,64,.85);color:#fff}
+.badge-prodotti{background:rgba(160,120,32,.85);color:#fff}
+.card-body{padding:1rem 1.1rem 1.1rem}
+.card-cat{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.3rem}
+.text-visitare{color:var(--blue)}
+.text-mangiare{color:var(--primary)}
+.text-trekking{color:var(--green)}
+.text-trekking-medio{color:var(--orange)}
+.text-bici{color:var(--blue)}
+.text-picnic{color:var(--violet)}
+.text-adventure{color:var(--coral)}
+.text-prodotti{color:var(--gold)}
+.card-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;line-height:1.3;margin-bottom:.35rem}
+.card-desc{font-size:.82rem;color:var(--muted);line-height:1.55;margin-bottom:.75rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.card-meta{display:flex;gap:.5rem;flex-wrap:wrap}
+.tag{font-size:.7rem;padding:.2rem .55rem;background:var(--surface2);border-radius:2rem;color:var(--muted)}
+.like-btn{display:flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border-radius:2rem;border:1.5px solid var(--border);font-size:.85rem;font-weight:600;transition:all .18s;background:var(--surface);white-space:nowrap}
+.like-btn:hover{border-color:#e55;background:#fff0f0}
+.like-btn.liked{border-color:#e55;background:#fff0f0;color:#e55}
+.like-btn .heart{font-size:.95rem;transition:transform .15s}
+.like-btn:active .heart{transform:scale(1.4)}
+.empty{text-align:center;padding:4rem 1.5rem;color:var(--muted);grid-column:1/-1}
+.empty-icon{font-size:3rem;margin-bottom:1rem}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:1rem}
+.overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:1.5rem;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);position:relative}
+.modal-img{aspect-ratio:16/9;overflow:hidden;border-radius:1.5rem 1.5rem 0 0}
+.modal-img img{width:100%;height:100%;object-fit:cover}
+.modal-body{padding:1.5rem}
+.modal-cat{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.35rem}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.6rem;line-height:1.2}
+.modal-desc{color:var(--muted);font-size:.92rem;line-height:1.7;margin-bottom:1rem}
+.modal-info{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+.info-chip{font-size:.8rem;padding:.3rem .7rem;background:var(--surface2);border-radius:2rem;color:var(--muted)}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-bottom:1rem}
+.gallery img{border-radius:.5rem;aspect-ratio:4/3;object-fit:cover;width:100%;cursor:pointer;transition:opacity .18s}
+.gallery img:hover{opacity:.82}
+.highlights-box{background:var(--surface2);border-radius:.75rem;padding:1rem;margin-bottom:1rem}
+.highlights-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-bottom:.5rem}
+.highlights-list{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.highlights-list li{font-size:.85rem}
+.links-box{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.link-chip{padding:.5rem .85rem;border-radius:.6rem;border:1.5px solid var(--border);font-size:.8rem;font-weight:600;background:var(--surface2);transition:background .18s;white-space:nowrap}
+.link-chip:hover{background:var(--border)}
+.modal-actions{display:flex;gap:.75rem}
+.modal-like{flex:1;padding:.7rem;border-radius:2rem;font-weight:600;font-size:.9rem;border:1.5px solid var(--border);transition:all .18s;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.modal-like:hover,.modal-like.liked{border-color:#e55;background:#fff0f0;color:#e55}
+.modal-maps{flex:1;padding:.7rem;border-radius:2rem;font-weight:600;font-size:.9rem;background:var(--primary);color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:background .18s}
+.modal-maps:hover{background:var(--primary-hover)}
+.close-btn{position:absolute;top:.9rem;right:.9rem;background:rgba(255,255,255,.92);backdrop-filter:blur(4px);border-radius:2rem;padding:.4rem;display:flex;box-shadow:var(--shadow);transition:background .18s}
+.close-btn:hover{background:#fff}
+
+/* FORM */
+.form-modal{background:var(--surface);border-radius:1.5rem;max-width:480px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);padding:1.75rem}
+.form-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:1.25rem}
+.field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.field label{font-size:.82rem;font-weight:600;color:var(--muted)}
+.field input,.field textarea,.field select{border:1.5px solid var(--border);border-radius:.6rem;padding:.6rem .85rem;font:inherit;font-size:.9rem;background:var(--bg);color:var(--text);outline:none;transition:border-color .18s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary)}
+.field textarea{resize:vertical;min-height:80px}
+.form-actions{display:flex;gap:.75rem;margin-top:1.25rem}
+.btn-submit{flex:1;padding:.7rem;border-radius:2rem;background:var(--primary);color:#fff;font-weight:600;font-size:.9rem;transition:background .18s}
+.btn-submit:hover{background:var(--primary-hover)}
+.btn-cancel{flex:1;padding:.7rem;border-radius:2rem;border:1.5px solid var(--border);font-weight:600;font-size:.9rem;transition:background .18s}
+.btn-cancel:hover{background:var(--surface2)}
+
+@media(max-width:500px){
+  nav{padding:0 1rem}
+  .grid{padding:1rem 1rem 3rem}
+  .filters{padding:1.5rem 1rem .5rem}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🏔️ Bassano da Scoprire</div>
+  <div class="nav-right">
+    <button class="btn-add" onclick="openAddForm()">+ Aggiungi idea</button>
+    <button class="btn-theme" data-theme-toggle aria-label="Tema">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Bassano da Scoprire 🌿</h1>
+  <p>Mangiare, camminare, pedalare, scoprire — tutto quello che c'è di bello attorno a Bassano del Grappa</p>
+  <div class="hero-sub">
+    <span class="hero-pill">🏔️ Monte Grappa</span>
+    <span class="hero-pill">🌉 Ponte degli Alpini</span>
+    <span class="hero-pill">🥃 Grappa Nardini</span>
+    <span class="hero-pill">🌿 Asparago DOP</span>
+  </div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">🗺️ Tutte</button>
+  <button class="filter-btn" data-filter="visitare">🏛️ Visitare</button>
+  <button class="filter-btn" data-filter="mangiare">🍽️ Mangiare</button>
+  <button class="filter-btn" data-filter="prodotti">🧀 Prodotti tipici</button>
+  <button class="filter-btn" data-filter="trekking">🥾 Trekking facili</button>
+  <button class="filter-btn" data-filter="trekking-medio">🏔️ Trekking medi</button>
+  <button class="filter-btn" data-filter="bici">🚲 Giri in bici</button>
+  <button class="filter-btn" data-filter="picnic">🧺 Pic-nic</button>
+  <button class="filter-btn" data-filter="adventure">🎢 Adventure & Fun</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<!-- CARD MODAL -->
+<div class="overlay" id="cardOverlay">
+  <div class="modal">
+    <button class="close-btn" onclick="closeModal('cardOverlay')">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-img"><img id="mImg" src="" alt=""></div>
+    <div class="modal-body">
+      <div class="modal-cat" id="mCat"></div>
+      <h2 class="modal-title" id="mTitle"></h2>
+      <p class="modal-desc" id="mDesc"></p>
+      <div class="modal-info" id="mInfo"></div>
+      <div class="gallery" id="mGallery"></div>
+      <div class="highlights-box" id="mHighlights" style="display:none">
+        <div class="highlights-label">Da non perdere</div>
+        <ul class="highlights-list" id="mHighlightsList"></ul>
+      </div>
+      <div class="links-box" id="mLinks" style="display:none"></div>
+      <div class="modal-actions">
+        <button class="modal-like" id="mLikeBtn" onclick="toggleLikeModal()">❤️ <span id="mLikeCount"></span> Mi piace</button>
+        <a class="modal-maps" id="mMaps" href="#" target="_blank" rel="noopener">📍 Google Maps</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD FORM MODAL -->
+<div class="overlay" id="addOverlay">
+  <div class="form-modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+      <div class="form-title" style="margin:0">➕ Nuova idea</div>
+      <button class="close-btn" style="position:static;box-shadow:none" onclick="closeModal('addOverlay')">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <form onsubmit="submitIdea(event)">
+      <div class="field"><label>Titolo *</label><input type="text" id="fTitle" placeholder="es. Trattoria da Mario" required></div>
+      <div class="field"><label>Categoria *</label>
+        <select id="fCat" required>
+          <option value="">— scegli —</option>
+          <option value="visitare">🏛️ Visitare</option>
+          <option value="mangiare">🍽️ Mangiare</option>
+          <option value="prodotti">🧀 Prodotti tipici</option>
+          <option value="trekking">🥾 Trekking facile</option>
+          <option value="trekking-medio">🏔️ Trekking medio</option>
+          <option value="bici">🚲 Giro in bici</option>
+          <option value="picnic">🧺 Pic-nic</option>
+          <option value="adventure">🎢 Adventure & Fun</option>
+        </select>
+      </div>
+      <div class="field"><label>Descrizione</label><textarea id="fDesc" placeholder="Descrivi il posto…"></textarea></div>
+      <div class="field"><label>Info (distanza, prezzo, orari…)</label><input type="text" id="fDist" placeholder="es. 12 km · Aperto tutti i giorni"></div>
+      <div class="field"><label>Durata / fascia oraria</label><input type="text" id="fDur" placeholder="es. 3h · Pranzo e cena"></div>
+      <div class="field"><label>Link Google Maps</label><input type="url" id="fMaps" placeholder="https://maps.google.com/..."></div>
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" onclick="closeModal('addOverlay')">Annulla</button>
+        <button type="submit" class="btn-submit">✅ Aggiungi</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const CAT = {
+  'visitare':       { label:'🏛️ Visitare',         badge:'badge-visitare',       text:'text-visitare' },
+  'mangiare':       { label:'🍽️ Mangiare',          badge:'badge-mangiare',       text:'text-mangiare' },
+  'prodotti':       { label:'🧀 Prodotti tipici',   badge:'badge-prodotti',       text:'text-prodotti' },
+  'trekking':       { label:'🥾 Trekking facile',   badge:'badge-trekking',       text:'text-trekking' },
+  'trekking-medio': { label:'🏔️ Trekking medio',    badge:'badge-trekking-medio', text:'text-trekking-medio' },
+  'bici':           { label:'🚲 Giro in bici',      badge:'badge-bici',           text:'text-bici' },
+  'picnic':         { label:'🧺 Pic-nic',           badge:'badge-picnic',         text:'text-picnic' },
+  'adventure':      { label:'🎢 Adventure & Fun',   badge:'badge-adventure',      text:'text-adventure' }
+};
+
+let ideas = [
+
+  // ── VISITARE ──
+  {
+    id:1, cat:'visitare', title:'Ponte degli Alpini — il simbolo di Bassano',
+    desc:"Il Ponte degli Alpini, progettato da Andrea Palladio nel 1569 e ricostruito più volte, è il simbolo assoluto di Bassano del Grappa. Collega il centro storico alla riva destra del Brenta con la sua struttura in legno coperta. Monumento nazionale dal 2019, è il luogo ideale da cui ammirare il fiume e i monti sullo sfondo. Ai suoi piedi si trovano le celebri grapperie Nardini, aperte dal 1779.",
+    dist:'Centro storico', dur:'30 min', diff:'Facile',
+    img:'pontealpini/copertina.jpg',
+    gallery:['pontealpini/foto1.jpg','pontealpini/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Ponte+degli+Alpini+Bassano+del+Grappa',
+    highlights:[
+      '🌉 Progettato da Andrea Palladio nel 1569',
+      '🥃 Grapperia Nardini ai piedi del ponte — aperta dal 1779',
+      '📸 Vista panoramica sul fiume Brenta e le Prealpi',
+      '🎖️ Monumento nazionale dal 2019',
+      '🚶 Punto di partenza ideale per il centro storico'
+    ],
+    links:[
+      { label:'🏛️ Visit Bassano', url:'https://www.visitbassano.it' }
+    ],
+    tags:['Centro storico','Palladio','Grappa','Icona'], likes:8
+  },
+  {
+    id:2, cat:'visitare', title:'Museo Civico e Galleria Civica',
+    desc:"Ospitato nell'ex Convento di San Francesco in Piazza Garibaldi, il Museo Civico è uno dei più antichi del Veneto. Conserva una straordinaria collezione di dipinti di Jacopo Dal Ponte (il Bassano), un'ala dedicata ad Antonio Canova con gessi e bozzetti originali, e sezioni di archeologia e medagliere. La Galleria Civica ospita mostre temporanee di livello nazionale.",
+    dist:'Piazza Garibaldi', dur:'2h', diff:'Facile',
+    img:'museocivico/copertina.jpg',
+    gallery:['museocivico/foto1.jpg','museocivico/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Museo+Civico+Bassano+del+Grappa',
+    highlights:[
+      '🎨 Opere di Jacopo Da Ponte detto "il Bassano"',
+      '🗿 Ala dedicata ad Antonio Canova con gessi originali',
+      '🏛️ Ospitato nel Convento di San Francesco (XII sec.)',
+      '🏺 Sezione archeologica e medagliere',
+      '🖼️ Galleria civica con mostre temporanee'
+    ],
+    links:[
+      { label:'🎨 Museo Civico', url:'https://www.museibassano.it' }
+    ],
+    tags:['Museo','Canova','Bassano pittore','Arte','Storia'], likes:4
+  },
+  {
+    id:3, cat:'visitare', title:'Palazzo Sturm — Museo della Ceramica',
+    desc:"Palazzo Sturm è uno splendido edificio barocco affacciato sul Brenta, a pochi passi dal Ponte degli Alpini. Ospita il Museo della Ceramica — Bassano è celebre per la sua tradizione ceramica sin dal 1700 — e la Biblioteca Civica con incisioni di Rembrandt e Dürer. Gli affreschi interni e la posizione sul fiume lo rendono una delle tappe più eleganti della città.",
+    dist:'Lungargine',  dur:'1h', diff:'Facile',
+    img:'palazzosturm/copertina.jpg',
+    gallery:['palazzosturm/foto1.jpg','palazzosturm/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Palazzo+Sturm+Bassano+del+Grappa',
+    highlights:[
+      '🏺 Museo della Ceramica — tradizione dal 1700',
+      '📚 Biblioteca civica con incisioni di Rembrandt e Dürer',
+      '🌊 Affacciato sul fiume Brenta — vista stupenda',
+      '🎨 Affreschi interni del Settecento',
+      '📍 A 2 minuti dal Ponte degli Alpini'
+    ],
+    tags:['Ceramica','Barocco','Brenta','Arte','Museo'], likes:3
+  },
+
+  // ── MANGIARE ──
+  {
+    id:4, cat:'mangiare', title:'Osteria alla Caneva',
+    desc:"Una delle osterie più amate di Bassano, con centinaia di recensioni entusiastiche. Cucina veneta autentica con baccalà alla vicentina, bigoli all'anatra, seppie in nero e ottimi piatti di stagione. Ambiente caldo e familiare, lista vini con etichette locali selezionate. Prenotazione consigliata nel weekend.",
+    dist:'Centro storico', dur:'Pranzo e cena', diff:'—',
+    img:'caneva/copertina.jpg',
+    gallery:['caneva/foto1.jpg','caneva/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Osteria+alla+Caneva+Bassano+del+Grappa',
+    highlights:[
+      '🐟 Baccalà alla vicentina — il piatto simbolo',
+      '🍝 Bigoli all\'anatra fatti in casa',
+      '🍷 Vini locali DOC Breganze e Colli Euganei',
+      '⭐ Tra le migliori osterie di Bassano su TripAdvisor',
+      '📅 Prenotazione consigliata nel weekend'
+    ],
+    tags:['Osteria','Cucina veneta','Baccalà','Familiare','€€'], likes:6
+  },
+  {
+    id:5, cat:'mangiare', title:'Osteria Trinità',
+    desc:"Storica osteria nel cuore del centro storico di Bassano, a pochi passi da Piazza Libertà. Menù semplice e genuino della tradizione bassanese: pasta fresca, carni alla griglia, formaggi locali e una cantina ricca di grappe e vini veneti. Il banco cicchetti all'ingresso è un classico per una sosta veloce.",
+    dist:'Piazza Libertà', dur:'Pranzo e cena', diff:'—',
+    img:'trinita/copertina.jpg',
+    gallery:['trinita/foto1.jpg','trinita/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Osteria+Trinita+Bassano+del+Grappa',
+    highlights:[
+      '🥂 Cicchetti veneziani al banco — perfetti per un aperitivo',
+      '🧀 Selezione di formaggi del Grappa (Morlacco, Bastardo)',
+      '🥩 Carni alla griglia di qualità',
+      '🥃 Cantina con oltre 50 etichette di grappa',
+      '📍 Posizione centralissima — Piazza Libertà'
+    ],
+    tags:['Osteria','Cicchetti','Centro','Grappa','€€'], likes:5
+  },
+  {
+    id:6, cat:'mangiare', title:'Trattoria da Alice',
+    desc:"Trattoria a gestione familiare semplice e autentica, poco fuori dal centro. Niente menù cartaceo — i piatti del giorno vengono comunicati a voce. Cucina casalinga con costine, baccalà, trippa, risotti stagionali e pasta fresca. Prezzi onestissimi. Una delle esperienze più genuine che Bassano può offrire.",
+    dist:'Periferia Bassano', dur:'Solo pranzo', diff:'—',
+    img:'trattoriaalice/copertina.jpg',
+    gallery:['trattoriaalice/foto1.jpg','trattoriaalice/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Trattoria+da+Alice+Bassano+del+Grappa',
+    highlights:[
+      '📋 Nessun menù cartaceo — piatti del giorno a voce',
+      '🍖 Costine, trippa, baccalà secondo tradizione',
+      '💰 Prezzi tra i più onesti della zona',
+      '👨‍👩‍👧 Gestione familiare da generazioni',
+      '🏡 Atmosfera autentica, non turistica'
+    ],
+    tags:['Trattoria','Economico','Autentico','Solo pranzo','€'], likes:4
+  },
+
+  // ── PRODOTTI TIPICI ──
+  {
+    id:7, cat:'prodotti', title:'I sapori del territorio bassanese',
+    desc:"Il territorio attorno a Bassano del Grappa è una dispensa straordinaria. L'Asparago Bianco di Bassano DOP (aprile-maggio) è il re della tavola primaverile. Le Ciliegie di Marostica IGP, il Biso di Borso (pisello dolcissimo), i Marroni del Monfenera IGP in autunno. I formaggi Morlacco e Bastardo del Grappa, la Sopressa veneta e naturalmente la Grappa — qui prodotta da Nardini (1779) e Poli. Dove fare scorta: Mercato di Piazza Garibaldi il giovedì e sabato mattina.",
+    dist:'Bassano e dintorni', dur:'—', diff:'—',
+    img:'prodottitipici/copertina.jpg',
+    gallery:['prodottitipici/foto1.jpg','prodottitipici/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Mercato+Bassano+del+Grappa',
+    highlights:[
+      '🌿 Asparago Bianco DOP — aprile/maggio, unico al mondo',
+      '🍒 Ciliegie di Marostica IGP — giugno',
+      '🌰 Marroni del Monfenera IGP — ottobre/novembre',
+      '🧀 Morlacco e Bastardo del Grappa — formaggi d\'alpeggio',
+      '🥃 Grappa Nardini e Poli — distillerie storiche visitabili',
+      '🛒 Mercato in Piazza Garibaldi — giovedì e sabato mattina'
+    ],
+    links:[
+      { label:'🥃 Poli Museo Grappa', url:'https://www.poligrappa.com' },
+      { label:'🥃 Grapperia Nardini', url:'https://www.nardini.it' }
+    ],
+    tags:['DOP','IGP','Grappa','Asparago','Mercato','Stagionale'], likes:5
+  },
+
+  // ── TREKKING FACILI ──
+  {
+    id:8, cat:'trekking', title:'Passeggiata sul Brenta — Lungargine',
+    desc:"L'argine del Brenta è la passeggiata più amata dai bassanesi. Si cammina lungo il fiume dai Ponti di Legno fino ai Campetti di San Michele, con vista costante sulle Prealpi e sul Grappa. Percorso pianeggiante, adatto a tutti, bellissimo al tramonto. Perfetto anche per una corsa mattutina o una pedalata.",
+    dist:'6 km', dur:'1.5h', diff:'Facile',
+    img:'lungargine/copertina.jpg',
+    gallery:['lungargine/foto1.jpg','lungargine/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Lungargine+Brenta+Bassano+del+Grappa',
+    highlights:[
+      '🌅 Vista sul Monte Grappa e le Prealpi Venete',
+      '🏞️ Percorso naturalistico lungo il Brenta',
+      '🚶 Adatto a famiglie e bambini',
+      '🌸 Bellissimo in primavera con la vegetazione',
+      '🚴 Percorribile anche in bici'
+    ],
+    tags:['Brenta','Pianura','Famiglie','Tramonto','Bassano'], likes:5
+  },
+  {
+    id:9, cat:'trekking', title:'Romano d\'Ezzelino — Anello dei Castelli',
+    desc:"Breve escursione collinare da Romano d'Ezzelino con vista su Bassano e la pianura. Si visitano i resti del Castello di Romano, il panorama sul Brenta e i vigneti pedemontani. Dislivello contenuto (200 m), sentiero ben segnato, ottimo per un mattino in compagnia.",
+    dist:'7 km', dur:'2.5h', diff:'Facile',
+    img:'romanoezzelino/copertina.jpg',
+    gallery:['romanoezzelino/foto1.jpg','romanoezzelino/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Romano+d+Ezzelino+Vicenza',
+    highlights:[
+      '🏰 Resti del Castello degli Ezzelini — storia medievale',
+      '🍇 Vigneti pedemontani della DOC Breganze',
+      '🌄 Vista su Bassano e la pianura veneta',
+      '200 m D+ — adatto a tutti',
+      '📍 10 minuti di auto da Bassano'
+    ],
+    tags:['Colline','Castello','Pedemontana','200 m D+'], likes:3
+  },
+  {
+    id:10, cat:'trekking', title:'Sentiero dell\'Alta Via del Tabacco',
+    desc:"Storico percorso collinare che attraversa le colline di Bassano tra antichi casali e campi di tabacco (una volta coltivazione tipica della zona). Partenza da Campolongo sul Brenta, si sale dolcemente tra boschi di castagni e prati con vista sulle Prealpi. Percorso storico-culturale unico nel suo genere.",
+    dist:'9 km', dur:'3h', diff:'Facile',
+    img:'altaviatobacco/copertina.jpg',
+    gallery:['altaviatobacco/foto1.jpg','altaviatobacco/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Alta+Via+del+Tabacco+Bassano',
+    highlights:[
+      '🌿 Paesaggio rurale storico tra casali e castagneti',
+      '🚬 Storia della coltivazione del tabacco nella zona',
+      '🏡 Antichi casali pedemontani restaurati',
+      '🍂 Bellissimo in autunno con i colori del bosco',
+      '📸 Scorci unici sulla pianura veneta'
+    ],
+    tags:['Colline','Storico','Castagni','Panorama','Culturale'], likes:2
+  },
+
+  // ── TREKKING MEDI ──
+  {
+    id:11, cat:'trekking-medio', title:'Cima Grappa — dal Rifugio Bassano',
+    desc:"Il Monte Grappa (1775 m) è il grande protagonista del paesaggio bassanese. Si può salire da Campo Croce (1200 m) fino al Sacrario Militare in cima con 600 m di dislivello e circa 2 ore di cammino. In vetta c'è il Sacrario con 12.000 caduti della Grande Guerra, il Rifugio Bassano e una vista a 360° su Dolomiti, Prealpi e pianura veneta. Esperienza indimenticabile.",
+    dist:'8 km', dur:'4h A/R', diff:'Media',
+    img:'cimagrappa/copertina.jpg',
+    gallery:['cimagrappa/foto1.jpg','cimagrappa/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Cima+Grappa+Vicenza',
+    highlights:[
+      '⛪ Sacrario Militare con 12.000 caduti della Grande Guerra',
+      '🔭 Vista su Dolomiti, Alpi e pianura veneta',
+      '🏔️ 1775 m — tetto del paesaggio bassanese',
+      '🍽️ Rifugio Bassano in vetta — pranzo con vista',
+      '🪖 Trincee e gallerie della Prima Guerra Mondiale lungo il percorso'
+    ],
+    links:[
+      { label:'🏔️ Info Monte Grappa', url:'https://www.vivereilgrappa.it' }
+    ],
+    tags:['Monte Grappa','Grande Guerra','1775 m','Rifugio','600 m D+'], likes:7
+  },
+  {
+    id:12, cat:'trekking-medio', title:'Marostica — Anello delle Mura Medievali',
+    desc:"Marostica è famosa per la Partita a Scacchi in costume e le sue mura medievali perfettamente conservate che collegano il Castello Inferiore in piazza al Castello Superiore in collina. L'anello completo sale dal paese fino al castello alto con un dislivello di 200 m, percorrendo le antiche mura e godendo di una vista spettacolare sulla scacchiera e le Prealpi.",
+    dist:'5 km', dur:'2h', diff:'Media',
+    img:'marostica/copertina.jpg',
+    gallery:['marostica/foto1.jpg','marostica/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Castello+Superiore+Marostica+Vicenza',
+    highlights:[
+      '♟️ Piazza degli Scacchi — una delle più belle d\'Italia',
+      '🏰 Castello Superiore con vista a 360°',
+      '🧱 Mura medievali percorribili — intatte dal 1300',
+      '🍒 Ciliegie IGP di Marostica — mercato in maggio/giugno',
+      '📍 15 minuti di auto da Bassano'
+    ],
+    tags:['Marostica','Medievale','Castelli','200 m D+','Scacchi'], likes:5
+  },
+  {
+    id:13, cat:'trekking-medio', title:'Asiago — Altopiano dei Cimbri',
+    desc:"L'Altopiano di Asiago è a meno di un'ora da Bassano e offre paesaggi alpini aperti, boschi di abeti e malghe. In estate si cammina sui pascoli con vista sulle Dolomiti di Brenta, in inverno si scia o ciaspola. L'anello della Cima Manderiolo (1575 m) da Gallio è un classico: 4 ore, 400 m D+, panorama eccezionale.",
+    dist:'10 km', dur:'4h', diff:'Media',
+    img:'asiago/copertina.jpg',
+    gallery:['asiago/foto1.jpg','asiago/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Asiago+Altopiano+Vicenza',
+    highlights:[
+      '🧀 Asiago DOP — il formaggio più famoso del Veneto',
+      '🏔️ Vista sulle Dolomiti di Brenta dalla cima',
+      '🌿 Malghe con formaggi e latticini freschi',
+      '⛷️ In inverno: sci e ciaspolate',
+      '📍 45 minuti da Bassano in auto'
+    ],
+    tags:['Asiago','Altopiano','Formaggio DOP','Dolomiti','400 m D+'], likes:4
+  },
+
+  // ── GIRI IN BICI ──
+  {
+    id:14, cat:'bici', title:'Ciclabile del Brenta — Bassano a Padova',
+    desc:"La ciclabile del Brenta è uno dei percorsi più belli del Veneto: 60 km da Bassano del Grappa fino a Padova lungo il fiume, tra ville palladiane, mulini storici e campi coltivati. Si può fare a tappe fermandosi a Cittadella (città murata medievale) o a Carturo. Percorso pianeggiante, quasi tutto su pista dedicata.",
+    dist:'60 km (intera)', dur:'4–5h', diff:'Facile',
+    img:'ciclabilebrenta/copertina.jpg',
+    gallery:['ciclabilebrenta/foto1.jpg','ciclabilebrenta/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Pista+Ciclabile+Brenta+Bassano',
+    highlights:[
+      '🏰 Cittadella — città murata medievale a metà percorso',
+      '🏛️ Ville Palladiane lungo il fiume',
+      '🌊 Lungo il fiume Brenta per tutta la discesa',
+      '📍 Quasi tutto su pista ciclabile dedicata',
+      '🚂 Ritorno in treno da Padova a Bassano (45 min)'
+    ],
+    tags:['Brenta','Pianura','60 km','Palladio','Padova'], likes:6
+  },
+  {
+    id:15, cat:'bici', title:'Anello della Pedemontana Veneta',
+    desc:"Giro ad anello di 35 km tra Bassano, Marostica, Breganze e Sandrigo lungo la Pedemontana. Percorso collinare dolce tra vigneti DOC Breganze, cantine storiche e piccoli borghi. Perfetto in primavera tra i ciliegi in fiore di Marostica. Fondo prevalentemente asfaltato, adatto a bici da corsa e gravel.",
+    dist:'35 km', dur:'2.5h', diff:'Media',
+    img:'pedemontanabici/copertina.jpg',
+    gallery:['pedemontanabici/foto1.jpg','pedemontanabici/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Marostica+Breganze+Bassano+ciclabile',
+    highlights:[
+      '🍒 Marostica in fiore — spettacolo in aprile',
+      '🍷 Cantine DOC Breganze lungo il percorso',
+      '🌄 Vista sul Monte Grappa per tutto il giro',
+      '🏘️ Borghi pedemontani pittoreschi',
+      '🚴 Adatto a bici da corsa e gravel'
+    ],
+    tags:['Pedemontana','Vigneti','35 km','Marostica','Gravel'], likes:3
+  },
+  {
+    id:16, cat:'bici', title:'MTB Anello del Grappa da Seren',
+    desc:"L'Anello del Grappa in mountain bike è uno dei percorsi MTB più spettacolari delle Prealpi Venete. 34 km con partenza da Seren del Grappa, si sale fino a Cima Grappa (1775 m) su strade militari sterrate della Grande Guerra e si ridiscende sul versante opposto. Per MTBiker esperti — dislivello 1500 m totale.",
+    dist:'34 km', dur:'3–4h', diff:'Impegnativa',
+    img:'mtbgrappa/copertina.jpg',
+    gallery:['mtbgrappa/foto1.jpg','mtbgrappa/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Seren+del+Grappa+Belluno',
+    highlights:[
+      '🏔️ Cima Grappa 1775 m — vetta in MTB',
+      '🪖 Strade militari della Grande Guerra',
+      '🔭 Panorama sulle Dolomiti in vetta',
+      '💪 Solo per MTBiker esperti — 1500 m D+',
+      '🍽️ Rifugio in vetta per il pranzo meritato'
+    ],
+    tags:['MTB','Grappa','34 km','Avanzato','1500 m D+'], likes:4
+  },
+
+  // ── PIC-NIC ──
+  {
+    id:17, cat:'picnic', title:'Prati del Brenta — Campolongo',
+    desc:"Le rive del Brenta a Campolongo sul Brenta sono una delle mete preferite per i picnic in famiglia nella zona di Bassano. Prati verdi lungo il fiume, acqua limpida e corrente, sassi piatti per fare il bagno e zone ombreggiate dagli alberi. In estate l'acqua è fredda e cristallina — ottima anche per rinfrescarsi.",
+    dist:'Campolongo sul Brenta', dur:'Giornata', diff:'Facile',
+    img:'praticampolongo/copertina.jpg',
+    gallery:['praticampolongo/foto1.jpg','praticampolongo/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Campolongo+sul+Brenta+Vicenza',
+    highlights:[
+      '💧 Acqua del Brenta limpida e fresca in estate',
+      '🌳 Zone ombreggiate lungo la riva',
+      '🪨 Sassi piatti perfetti per stendersi',
+      '🐠 Trote e fauna fluviale visibili nell\'acqua',
+      '🅿️ Parcheggio gratuito nelle vicinanze'
+    ],
+    tags:['Brenta','Fiume','Famiglie','Estate','Gratis'], likes:5
+  },
+  {
+    id:18, cat:'picnic', title:'Malga Fiara — Monte Grappa',
+    desc:"Malga Fiara è una delle malghe più accessibili del Monte Grappa, raggiungibile in auto dalla strada militare. Intorno alla malga ci sono prati aperti con vista su Bassano e la pianura veneta — perfetti per un picnic in quota a circa 1300 m. In estate si può acquistare formaggi freschi direttamente dalla malga.",
+    dist:'Monte Grappa (auto)', dur:'Giornata', diff:'Facile',
+    img:'malgafiara/copertina.jpg',
+    gallery:['malgafiara/foto1.jpg','malgafiara/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Malga+Fiara+Monte+Grappa',
+    highlights:[
+      '🧀 Formaggi e latticini freschi dalla malga',
+      '🌄 Vista panoramica su Bassano e la pianura',
+      '🚗 Raggiungibile in auto sulla strada militare',
+      '🏔️ A circa 1300 m di quota — aria fresca anche in estate',
+      '🐄 Mucche al pascolo — esperienza autentica di montagna'
+    ],
+    tags:['Malga','Monte Grappa','1300 m','Formaggi','Panorama'], likes:4
+  },
+  {
+    id:19, cat:'picnic', title:'Parco Ragazzi del 99 — Bassano',
+    desc:"Il parco pubblico più grande di Bassano del Grappa, dedicato ai ragazzi del 1899 che combatterono sul Grappa. Area verde attrezzata con tavoli da picnic, zona giochi per bambini, campo sportivo e ampi prati. Perfetto per una giornata in famiglia senza allontanarsi dalla città. Nelle vicinanze il Museo degli Alpini.",
+    dist:'Bassano centro', dur:'Mezza giornata', diff:'Facile',
+    img:'parcoragazzi/copertina.jpg',
+    gallery:['parcoragazzi/foto1.jpg','parcoragazzi/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Parco+Ragazzi+del+99+Bassano+del+Grappa',
+    highlights:[
+      '🎠 Area giochi attrezzata per bambini',
+      '🏓 Campo sportivo e spazio per attività',
+      '🪑 Tavoli da picnic in zona ombreggiata',
+      '🎖️ Dedicato ai Ragazzi del 99 della Grande Guerra',
+      '📍 A 5 minuti a piedi dal centro storico'
+    ],
+    tags:['Parco','Bassano','Bambini','Gratuito','Centrale'], likes:3
+  },
+
+  // ── ADVENTURE & FUN ──
+  {
+    id:20, cat:'adventure', title:'Parco Avventura Monte Grappa',
+    desc:"Percorsi avventura tra gli alberi sulle pendici del Monte Grappa, con teleferiche, ponti tibetani e zip-line a varie altezze. Adatto da 6 anni in su con percorsi per tutti i livelli. Ambiente boschivo spettacolare con vista sulle Prealpi. Perfetto per famiglie o gruppi di amici in cerca di adrenalina.",
+    dist:'Pendici Monte Grappa', dur:'3h', diff:'Media',
+    img:'parcovventuragrappa/copertina.jpg',
+    gallery:['parcavventuragrappa/foto1.jpg','parcavventuragrappa/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Parco+Avventura+Monte+Grappa',
+    highlights:[
+      '🌲 Percorsi tra gli alberi a varie difficoltà',
+      '🪢 Zip-line e ponti tibetani',
+      '👶 Percorsi adatti da 6 anni in su',
+      '🏔️ Vista sul Monte Grappa e le Prealpi',
+      '🎉 Ideale per compleanni e gruppi'
+    ],
+    tags:['Avventura','Alberi','Famiglie','Grappa','Adrenalina'], likes:3
+  },
+  {
+    id:21, cat:'adventure', title:'Rafting sul Brenta — Valstagna',
+    desc:"Il tratto del Brenta tra Valstagna e Carpanè è uno dei migliori per il rafting in Veneto. Il fiume scorre tra le gole della Valbrenta con rapide di vario grado. Diverse società organizzano discese guidate da 2 a 4 ore, adatte anche a principianti. Si noleggia tutto l'attrezzatura sul posto. Ottimo da aprile a settembre.",
+    dist:'Valstagna (VI)', dur:'2–4h', diff:'Media',
+    img:'raftingbrenta/copertina.jpg',
+    gallery:['raftingbrenta/foto1.jpg','raftingbrenta/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Valstagna+Vicenza+rafting+Brenta',
+    highlights:[
+      '🌊 Rapide del Brenta tra le gole della Valbrenta',
+      '🛶 Adatto anche a principianti con guida',
+      '👕 Attrezzatura completa fornita sul posto',
+      '📅 Stagione: aprile–settembre',
+      '📍 30 minuti da Bassano lungo il Brenta'
+    ],
+    tags:['Rafting','Brenta','Acqua','Avventura','Estate'], likes:5
+  },
+  {
+    id:22, cat:'adventure', title:'Parapendio biposto — Campo dei Fiori',
+    desc:"Volo biposto in parapendio con decollo dalle pendici del Monte Grappa e atterraggio in pianura vicino a Bassano. Un'esperienza unica per vedere il Ponte degli Alpini, il Brenta e le Dolomiti dall'alto. Nessuna esperienza richiesta — si vola con un pilota esperto. Prenotazione obbligatoria, volo dura circa 20–30 minuti.",
+    dist:'Monte Grappa / Bassano', dur:'30 min volo', diff:'—',
+    img:'parapendiograppa/copertina.jpg',
+    gallery:['parapendiograppa/foto1.jpg','parapendiograppa/foto2.jpg'],
+    maps:'https://maps.google.com/?q=Parapendio+Monte+Grappa+Bassano',
+    highlights:[
+      '🪂 Volo biposto — nessuna esperienza richiesta',
+      '🌉 Vista sul Ponte degli Alpini e il Brenta dall\'alto',
+      '🏔️ Dolomiti e Prealpi sullo sfondo',
+      '⏱️ Volo di 20–30 minuti',
+      '📅 Prenotazione obbligatoria'
+    ],
+    tags:['Parapendio','Volo','Adrenalina','Panorama','Prenotare'], likes:4
+  }
+];
+
+let likes = {};
+let currentId = null;
+let activeFilter = 'all';
+
+try {
+  const saved = localStorage.getItem('bs_likes');
+  if(saved) likes = JSON.parse(saved);
+  const savedIdeas = localStorage.getItem('bs_ideas');
+  if(savedIdeas) ideas = ideas.concat(JSON.parse(savedIdeas));
+} catch(e){}
+
+function saveLikes(){ try{ localStorage.setItem('bs_likes', JSON.stringify(likes)); }catch(e){} }
+
+function imgUrl(src){
+  if(!src) return 'https://picsum.photos/seed/bassano-default/640/360';
+  if(src.startsWith('http') || src.includes('/')) return src;
+  return 'https://picsum.photos/seed/'+src+'/640/360';
+}
+
+function renderGrid(){
+  const filtered = ideas.filter(i => activeFilter==='all' || i.cat===activeFilter);
+  const grid = document.getElementById('grid');
+  if(!filtered.length){
+    grid.innerHTML='<div class="empty"><div class="empty-icon">🏔️</div><p>Nessuna scheda in questa categoria.<br>Aggiungila tu!</p></div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(idea => {
+    const c = CAT[idea.cat] || CAT['visitare'];
+    const liked = !!likes[idea.id];
+    const likeCount = (idea.likes||0) + (liked?1:0);
+    return `
+    <div class="card" onclick="openCard(${idea.id})">
+      <div class="card-img">
+        <img src="${imgUrl(idea.img)}" alt="${idea.title}" width="640" height="360" loading="lazy">
+        <div class="cat-badge ${c.badge}">${c.label}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-cat ${c.text}">${c.label}</div>
+        <div class="card-title">${idea.title}</div>
+        <div class="card-desc">${idea.desc}</div>
+        <div class="card-footer">
+          <div class="card-meta">
+            ${idea.dist?`<span class="tag">📍 ${idea.dist}</span>`:''}
+            ${idea.dur?`<span class="tag">⏱ ${idea.dur}</span>`:''}
+          </div>
+          <button class="like-btn ${liked?'liked':''}" onclick="event.stopPropagation();toggleLike(${idea.id},this)">
+            <span class="heart">${liked?'❤️':'🤍'}</span>
+            <span class="like-num">${likeCount}</span>
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleLike(id, btn){
+  likes[id] = !likes[id];
+  saveLikes();
+  const idea = ideas.find(i=>i.id===id);
+  const count = (idea.likes||0) + (likes[id]?1:0);
+  btn.querySelector('.heart').textContent = likes[id]?'❤️':'🤍';
+  btn.querySelector('.like-num').textContent = count;
+  btn.classList.toggle('liked', !!likes[id]);
+  if(currentId===id){
+    document.getElementById('mLikeBtn').classList.toggle('liked', !!likes[id]);
+    document.getElementById('mLikeCount').textContent = count;
+  }
+}
+
+function toggleLikeModal(){
+  const btn = document.querySelector(`.card[onclick="openCard(${currentId})"] .like-btn`);
+  if(btn){ toggleLike(currentId, btn); return; }
+  likes[currentId] = !likes[currentId];
+  saveLikes();
+  const idea = ideas.find(i=>i.id===currentId);
+  const count = (idea.likes||0)+(likes[currentId]?1:0);
+  document.getElementById('mLikeBtn').classList.toggle('liked',!!likes[currentId]);
+  document.getElementById('mLikeCount').textContent = count;
+  renderGrid();
+}
+
+function openCard(id){
+  const idea = ideas.find(i=>i.id===id);
+  if(!idea) return;
+  currentId = id;
+  const c = CAT[idea.cat] || CAT['visitare'];
+  const liked = !!likes[id];
+  const count = (idea.likes||0)+(liked?1:0);
+  document.getElementById('mImg').src = imgUrl(idea.img);
+  document.getElementById('mImg').alt = idea.title;
+  document.getElementById('mCat').className = 'modal-cat '+c.text;
+  document.getElementById('mCat').textContent = c.label;
+  document.getElementById('mTitle').textContent = idea.title;
+  document.getElementById('mDesc').textContent = idea.desc;
+  document.getElementById('mInfo').innerHTML = [
+    idea.dist?`<span class="info-chip">📍 ${idea.dist}</span>`:'',
+    idea.dur?`<span class="info-chip">⏱ ${idea.dur}</span>`:'',
+    idea.diff&&idea.diff!=='—'?`<span class="info-chip">💪 ${idea.diff}</span>`:'',
+    ...(idea.tags||[]).map(t=>`<span class="info-chip">${t}</span>`)
+  ].join('');
+  const gallery = document.getElementById('mGallery');
+  if(idea.gallery && idea.gallery.length){
+    gallery.style.display='grid';
+    gallery.innerHTML = idea.gallery.map(f=>
+      `<img src="${imgUrl(f)}" alt="foto" loading="lazy" onclick="window.open('${f}','_blank')">`
+    ).join('');
+  } else {
+    gallery.style.display='none'; gallery.innerHTML='';
+  }
+  const hlBox = document.getElementById('mHighlights');
+  const hlList = document.getElementById('mHighlightsList');
+  if(idea.highlights && idea.highlights.length){
+    hlBox.style.display='block';
+    hlList.innerHTML = idea.highlights.map(h=>`<li>${h}</li>`).join('');
+  } else { hlBox.style.display='none'; }
+  const linksBox = document.getElementById('mLinks');
+  if(idea.links && idea.links.length){
+    linksBox.style.display='flex';
+    linksBox.innerHTML = idea.links.map(l=>
+      `<a class="link-chip" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`
+    ).join('');
+  } else { linksBox.style.display='none'; }
+  document.getElementById('mLikeBtn').classList.toggle('liked', liked);
+  document.getElementById('mLikeCount').textContent = count;
+  const a = document.getElementById('mMaps');
+  if(idea.maps){ a.href=idea.maps; a.style.display='flex'; }
+  else { a.style.display='none'; }
+  document.getElementById('cardOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(id){
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.getElementById('cardOverlay').addEventListener('click',function(e){if(e.target===this)closeModal('cardOverlay');});
+document.getElementById('addOverlay').addEventListener('click',function(e){if(e.target===this)closeModal('addOverlay');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal('cardOverlay');closeModal('addOverlay');}});
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter=btn.dataset.filter;
+    renderGrid();
+  });
+});
+
+function openAddForm(){
+  document.getElementById('addOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function submitIdea(e){
+  e.preventDefault();
+  const title=document.getElementById('fTitle').value.trim();
+  const cat=document.getElementById('fCat').value;
+  if(!title||!cat) return;
+  const newIdea={
+    id:Date.now(), cat, title,
+    desc:document.getElementById('fDesc').value.trim()||'Nessuna descrizione.',
+    dist:document.getElementById('fDist').value.trim(),
+    dur:document.getElementById('fDur').value.trim(),
+    diff:'—', img:'bassano-new-idea',
+    maps:document.getElementById('fMaps').value.trim(),
+    tags:[], likes:0
+  };
+  ideas.push(newIdea);
+  try{
+    const saved=JSON.parse(localStorage.getItem('bs_ideas')||'[]');
+    saved.push(newIdea);
+    localStorage.setItem('bs_ideas',JSON.stringify(saved));
+  }catch(ex){}
+  closeModal('addOverlay');
+  e.target.reset();
+  renderGrid();
+}
+
+(function(){
+  const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
+  let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  r.setAttribute('data-theme',d);
+  t&&t.addEventListener('click',()=>{
+    d=d==='dark'?'light':'dark';
+    r.setAttribute('data-theme',d);
+    t.innerHTML=d==='dark'
+      ?'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      :'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  });
+})();
+
+renderGrid();
+</script>
+</body>
+</html>
