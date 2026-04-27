@@ -627,7 +627,7 @@ let ideas = [
   tags:['Lago','Pianura','Balneabile','Natura','Brenta','Estate'], likes:0
 },
   {
-  id:36, cat:'trekking', title:'Campomulo — Sentiero del Silenzio',
+  id:34, cat:'trekking', title:'Campomulo — Sentiero del Silenzio',
   desc:"A 1600 metri sull\'Altopiano di Asiago, il Sentiero del Silenzio è un percorso ad anello di 2,5 km immerso in un bosco di abeti e faggi, tra crateri della Grande Guerra e 10 installazioni artistiche che invitano alla riflessione sulla pace e sulla memoria. Adatto a tutta la famiglia — anche ai bambini più piccoli. Prima o dopo il sentiero, il Rifugio Campomuletto è a pochi passi: cucina di montagna autentica con polenta cotta sulla stufa a legna, tosella con funghi, canederli e formaggi dell\'altopiano. Terrazza con vista sul bosco aperta in estate.",
   dist:'2,5 km ad anello — partenza dal Rifugio Campomuletto (1602 m)', dur:'1h (soste escluse)', diff:'Facile 🟢 — 100 m D+',
   img:'campomulo/copertina.jpg',
@@ -648,11 +648,11 @@ let ideas = [
   tags:['Altopiano','Asiago','Famiglia','Grande Guerra','Bosco','Rifugio'], likes:0
 },
 {
-  id:37, cat:'trekking', title:'Valrovina - Cascata del Silan e Eremo di San Bovo',
+  id:35, cat:'trekking', title:'Valrovina - Cascata del Silan e Eremo di San Bovo',
   desc:"A pochi minuti da Bassano, nascosta tra i boschi delle colline di Valrovina, la Cascata del Silan e uno dei posti piu magici della zona. Il percorso ad anello parte dalla chiesa di San Michele o da Valrovina, si inerpica tra selciate medievali, stradine sterrate e sentieri nel bosco fino alla cascata che scende in piu salti tra le rocce. Lungo il tragitto si passa per il borgo abbandonato di Priva con vista sulla pianura veneta, per il piccolo Eremo di San Bovo in posizione panoramica, e per i borghi di Caluga e Valrovina. Perfetto in primavera e autunno, quando la cascata e in piena. I bambini lo adorano: sassi, acqua e avventura garantiti.",
   dist:'Partenza da San Michele - 5 min da Bassano', dur:'3h (soste escluse)', diff:'Facile',
-  img:'campomulo/copertina.jpg',
-  gallery:['campomulo/foto1.jpg','campomulo/foto2.jpg'],
+  img:'valrovina/copertina.jpg',
+  gallery:['valrovina/foto1.jpg','valrovina/foto2.jpg'],
   maps:'https://maps.google.com/?q=Cascata+del+Silan+Bassano+del+Grappa',
   highlights:[
     'Cascata del Silan - salti d\'acqua nel bosco, bellissima dopo la pioggia',
@@ -670,7 +670,23 @@ let ideas = [
   ],
   tags:['Cascata','Valrovina','Famiglia','Bosco','9 km','300 m D+'], likes:0
 },
-
+    {
+    id:37, cat:'trekking', title:'Marostica — Anello delle Mura Medievali',
+    desc:"Marostica è famosa per la Partita a Scacchi in costume e le sue mura medievali perfettamente conservate che collegano il Castello Inferiore in piazza al Castello Superiore in collina. L'anello completo sale dal paese fino al castello alto con un dislivello di 200 m, percorrendo le antiche mura e godendo di una vista spettacolare sulla scacchiera e le Prealpi.",
+    dist:'5 km', dur:'2h', diff:'Media',
+    img:'marostica/copertina2.jpg',
+    gallery:['marostica/foto3.jpg','marostica/foto4.jpg'],
+    maps:'https://maps.google.com/?q=Castello+Superiore+Marostica+Vicenza',
+    highlights:[
+      '♟️ Piazza degli Scacchi — una delle più belle d\'Italia',
+      '🏰 Castello Superiore con vista a 360°',
+      '🧱 Mura medievali percorribili — intatte dal 1300',
+      '🍒 Ciliegie IGP di Marostica — mercato in maggio/giugno',
+      '📍 15 minuti di auto da Bassano'
+    ],
+    tags:['Marostica','Medievale','Castelli','200 m D+','Scacchi'], likes:5
+  },
+  /*
   {
     id:38, cat:'trekking', title:'Romano d\'Ezzelino — Anello dei Castelli',
     desc:"Breve escursione collinare da Romano d'Ezzelino con vista su Bassano e la pianura. Si visitano i resti del Castello di Romano, il panorama sul Brenta e i vigneti pedemontani. Dislivello contenuto (200 m), sentiero ben segnato, ottimo per un mattino in compagnia.",
@@ -686,8 +702,8 @@ let ideas = [
       '📍 10 minuti di auto da Bassano'
     ],
     tags:['Colline','Castello','Pedemontana','200 m D+'], likes:3
-  },
-  
+  }, 
+  x
   {
     id:39, cat:'trekking', title:'Sentiero dell\'Alta Via del Tabacco',
     desc:"Storico percorso collinare che attraversa le colline di Bassano tra antichi casali e campi di tabacco (una volta coltivazione tipica della zona). Partenza da Campolongo sul Brenta, si sale dolcemente tra boschi di castagni e prati con vista sulle Prealpi. Percorso storico-culturale unico nel suo genere.",
@@ -704,7 +720,7 @@ let ideas = [
     ],
     tags:['Colline','Storico','Castagni','Panorama','Culturale'], likes:2
   },
-
+*/
   // ── TREKKING MEDI ──
   {
     id:41, cat:'trekking-medio', title:'Cima Grappa — dal Rifugio Bassano',
@@ -749,22 +765,6 @@ let ideas = [
   ],
   tags:['Grande Guerra','Gallerie','Trincee','Asiago','5 km','200 m D+'], likes:0
 },
-  {
-    id:43, cat:'trekking-medio', title:'Marostica — Anello delle Mura Medievali',
-    desc:"Marostica è famosa per la Partita a Scacchi in costume e le sue mura medievali perfettamente conservate che collegano il Castello Inferiore in piazza al Castello Superiore in collina. L'anello completo sale dal paese fino al castello alto con un dislivello di 200 m, percorrendo le antiche mura e godendo di una vista spettacolare sulla scacchiera e le Prealpi.",
-    dist:'5 km', dur:'2h', diff:'Media',
-    img:'marostica/copertina.jpg',
-    gallery:['marostica/foto1.jpg','marostica/foto2.jpg'],
-    maps:'https://maps.google.com/?q=Castello+Superiore+Marostica+Vicenza',
-    highlights:[
-      '♟️ Piazza degli Scacchi — una delle più belle d\'Italia',
-      '🏰 Castello Superiore con vista a 360°',
-      '🧱 Mura medievali percorribili — intatte dal 1300',
-      '🍒 Ciliegie IGP di Marostica — mercato in maggio/giugno',
-      '📍 15 minuti di auto da Bassano'
-    ],
-    tags:['Marostica','Medievale','Castelli','200 m D+','Scacchi'], likes:5
-  },
   {
     id:43, cat:'trekking-medio', title:'Asiago — Altopiano dei Cimbri',
     desc:"L'Altopiano di Asiago è a meno di un'ora da Bassano e offre paesaggi alpini aperti, boschi di abeti e malghe. In estate si cammina sui pascoli con vista sulle Dolomiti di Brenta, in inverno si scia o ciaspola. L'anello della Cima Manderiolo (1575 m) da Gallio è un classico: 4 ore, 400 m D+, panorama eccezionale.",
